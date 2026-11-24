@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+node_modules/
+**/node_modules/
+backend/.venv/
+**/__pycache__/
+**/.pytest_cache/
+**/.ruff_cache/
+frontend/dist/
+extension/out/
+*.vsix
+artifacts/
+coverage/
+playwright-report/
+test-results/

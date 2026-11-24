@@ -1,0 +1,43 @@
+{
+  "validated_at": "2026-11-23T19:11:43.821919+00:00",
+  "transport": "HTTP real FastAPI → LangGraph → OpenRouter → PostgreSQL",
+  "app_id": "e94f81dd-0f98-415e-8659-24a1041d6fcd",
+  "folder_id": "41d0fb4d-4a6b-46c1-8f10-e555f08197dc",
+  "conversation_id": "c14930a1-8656-4365-a524-ff4365d0c186",
+  "task_id": "424352ed-1f9c-4ecf-899f-6f347f9d781c",
+  "generation_id": "gen-1795461101-zAEDwS8yBPQUe3x5vtvh",
+  "model_id": "openrouter/free",
+  "events": [
+    "task",
+    "context",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "delta",
+    "done"
+  ],
+  "usage": {
+    "prompt_tokens": 237,
+    "completion_tokens": 99,
+    "cost_usd": "0",
+    "cost_status": "confirmed"
+  },
+  "duration_ms": 3181,
+  "same_conversation_from_independent_client": true,
+  "duplicate_request_status": 409,
+  "vscode_host_ui_validated": false
+}

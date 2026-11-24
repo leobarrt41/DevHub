@@ -1,0 +1,15 @@
+.git
+node_modules
+**/node_modules
+backend/.venv
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+frontend/dist
+extension/out
+.env
+.env.*
+!.env.example
+artifacts
+*.zip
+*.vsix

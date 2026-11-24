@@ -1,0 +1,109 @@
+{
+  "name": "devhub-ai-vscode",
+  "displayName": "DevHub AI",
+  "description": "Cliente VS Code do DevHub AI, usando o backend central autenticado.",
+  "version": "0.1.0",
+  "publisher": "devhub-ai",
+  "license": "UNLICENSED",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": ["Other"],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onView:devhub.chat",
+    "onView:devhub.tree",
+    "onCommand:devhub.connect",
+    "onCommand:devhub.openObservability",
+    "onCommand:devhub.renameItem",
+    "onCommand:devhub.reparentFolder",
+    "onCommand:devhub.toggleArchived",
+    "onCommand:devhub.restoreItem",
+    "onCommand:devhub.search"
+  ],
+  "files": ["out/**", "media/**", "README.md", "package.json"],
+  "scripts": {
+    "compile": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "test": "pnpm run compile && node --test test/*.test.js",
+    "vscode:prepublish": "pnpm run compile"
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "devhub",
+          "title": "DevHub AI",
+          "icon": "media/devhub.svg"
+        }
+      ]
+    },
+    "views": {
+      "devhub": [
+        {
+          "id": "devhub.tree",
+          "name": "Projetos e conversas",
+          "visibility": "visible"
+        },
+        {
+          "id": "devhub.chat",
+          "name": "Chat",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      { "command": "devhub.connect", "title": "DevHub: Conectar" },
+      { "command": "devhub.disconnect", "title": "DevHub: Desconectar" },
+      { "command": "devhub.refresh", "title": "DevHub: Atualizar árvore" },
+      { "command": "devhub.createProject", "title": "DevHub: Criar projeto" },
+      { "command": "devhub.createFolder", "title": "DevHub: Criar pasta" },
+      { "command": "devhub.createConversation", "title": "DevHub: Criar conversa" },
+      { "command": "devhub.openConversation", "title": "DevHub: Abrir conversa" },
+      { "command": "devhub.archiveItem", "title": "DevHub: Arquivar item" },
+      { "command": "devhub.restoreItem", "title": "DevHub: Reabrir item arquivado" },
+      { "command": "devhub.renameItem", "title": "DevHub: Renomear projeto, pasta ou conversa" },
+      { "command": "devhub.reparentFolder", "title": "DevHub: Mover pasta…" },
+      { "command": "devhub.toggleArchived", "title": "DevHub: Alternar itens arquivados" },
+      { "command": "devhub.search", "title": "DevHub: Pesquisar projetos, pastas, conversas e memória…" },
+      { "command": "devhub.moveConversation", "title": "DevHub: Mover conversa…" },
+      { "command": "devhub.openObservability", "title": "DevHub: Consultar observabilidade" }
+    ],
+    "configuration": {
+      "title": "DevHub AI",
+      "properties": {
+        "devhub.backendUrl": {
+          "type": "string",
+          "default": "http://localhost:8000",
+          "scope": "application",
+          "description": "Origem do backend DevHub (HTTP somente para localhost/loopback; HTTPS obrigatório para outros hosts). A extensão acrescenta /api/v1. Não inclua token, caminho, query ou fragmento."
+        }
+      }
+    },
+    "menus": {
+      "view/title": [
+        { "command": "devhub.createProject", "when": "view == devhub.tree", "group": "navigation@1" },
+        { "command": "devhub.createConversation", "when": "view == devhub.tree", "group": "navigation@2" },
+        { "command": "devhub.search", "when": "view == devhub.tree", "group": "navigation@3" },
+        { "command": "devhub.toggleArchived", "when": "view == devhub.tree", "group": "navigation@4" },
+        { "command": "devhub.openObservability", "when": "view == devhub.tree", "group": "navigation@5" },
+        { "command": "devhub.refresh", "when": "view == devhub.tree", "group": "navigation@6" }
+      ],
+      "view/item/context": [
+        { "command": "devhub.openConversation", "when": "view == devhub.tree && viewItem == devhubConversation", "group": "inline@1" },
+        { "command": "devhub.createFolder", "when": "view == devhub.tree && (viewItem == devhubProject || viewItem == devhubFolder || viewItem == devhubGeneral)", "group": "inline@2" },
+        { "command": "devhub.createConversation", "when": "view == devhub.tree && (viewItem == devhubProject || viewItem == devhubFolder || viewItem == devhubGeneral)", "group": "inline@3" },
+        { "command": "devhub.moveConversation", "when": "view == devhub.tree && viewItem == devhubConversation", "group": "inline@4" },
+        { "command": "devhub.reparentFolder", "when": "view == devhub.tree && (viewItem == devhubFolder || viewItem == devhubArchivedFolder)", "group": "inline@4" },
+        { "command": "devhub.renameItem", "when": "view == devhub.tree && (viewItem == devhubProject || viewItem == devhubFolder || viewItem == devhubConversation || viewItem == devhubArchivedProject || viewItem == devhubArchivedFolder || viewItem == devhubArchivedConversation)", "group": "inline@5" },
+        { "command": "devhub.archiveItem", "when": "view == devhub.tree && (viewItem == devhubProject || viewItem == devhubFolder || viewItem == devhubConversation)", "group": "inline@6" },
+        { "command": "devhub.restoreItem", "when": "view == devhub.tree && (viewItem == devhubArchivedProject || viewItem == devhubArchivedFolder || viewItem == devhubArchivedConversation)", "group": "inline@7" }
+      ]
+    }
+  },
+  "devDependencies": {
+    "@types/node": "22.10.0",
+    "@types/vscode": "1.95.0",
+    "typescript": "5.9.3"
+  }
+}

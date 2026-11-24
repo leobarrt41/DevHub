@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:16-bookworm
+    environment:
+      POSTGRES_DB: devhub
+      POSTGRES_USER: devhub
+      POSTGRES_PASSWORD: devhub_local_only
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - devhub-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devhub -d devhub"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  api:
+    profiles: ["app"]
+    build: .
+    environment:
+      DATABASE_URL: postgresql+asyncpg://devhub:devhub_local_only@db:5432/devhub
+      DEVHUB_ACCESS_TOKEN: ${DEVHUB_ACCESS_TOKEN:?Configure o token apenas no ambiente local}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:?Configure a chave apenas no ambiente local}
+      DEVHUB_DEFAULT_MODEL: ${DEVHUB_DEFAULT_MODEL:-openrouter/free}
+      PORT: 8080
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  devhub-postgres:

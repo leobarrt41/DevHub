@@ -1,0 +1,11 @@
+{
+  "validated_at": "2026-11-23T19:17:44.645Z",
+  "frontend_adapter": "frontend/src/services/api.ts",
+  "extension_adapter": "extension/src/api.ts",
+  "same_tree": true,
+  "same_conversation": true,
+  "same_metrics_and_task_id": true,
+  "conversation_id": "c14930a1-8656-4365-a524-ff4365d0c186",
+  "task_id": "424352ed-1f9c-4ecf-899f-6f347f9d781c",
+  "vscode_host_ui_validated": false
+}

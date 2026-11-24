@@ -1,0 +1,13 @@
+{
+  "name": "devhub-ai",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.25.0",
+  "engines": { "node": ">=22.12.0", "pnpm": ">=11 <12" },
+  "scripts": {
+    "build": "pnpm --dir frontend build && pnpm --dir extension compile",
+    "typecheck": "pnpm --dir frontend typecheck && pnpm --dir extension typecheck",
+    "test": "pnpm --dir frontend test && pnpm --dir extension test",
+    "dev": "pnpm --dir frontend dev --host 0.0.0.0 --port 3000 --strictPort"
+  }
+}

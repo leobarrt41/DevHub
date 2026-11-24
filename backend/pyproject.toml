@@ -1,0 +1,38 @@
+[project]
+name = "devhub-ai-backend"
+version = "0.1.0"
+description = "Cérebro central persistente do DevHub AI"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "fastapi==0.121.3",
+  "uvicorn[standard]==0.38.0",
+  "sqlalchemy[asyncio]==2.0.44",
+  "asyncpg==0.30.0",
+  "alembic==1.17.2",
+  "pydantic-settings==2.12.0",
+  "httpx==0.28.1",
+  "langgraph==1.0.3",
+]
+
+[dependency-groups]
+dev = ["pytest==8.4.2", "pytest-asyncio==1.3.0", "ruff==0.14.6"]
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["devhub"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B008", "E501"]
